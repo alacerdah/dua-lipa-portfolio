@@ -7,7 +7,7 @@ function CurveArrow({ flip }: { flip?: boolean }) {
       height="60"
       viewBox="0 0 46 60"
       aria-hidden="true"
-      className={`absolute hidden opacity-80 sm:block ${flip ? "right-[-46px] bottom-[-18px] -scale-x-100" : "top-[-18px] left-[-46px]"}`}
+      className={`absolute hidden opacity-80 lg:block ${flip ? "right-[-46px] bottom-[-18px] -scale-x-100" : "top-[-18px] left-[-46px]"}`}
     >
       <path d="M40 4C30 14 12 16 6 32" stroke="currentColor" strokeWidth="2.5" fill="none" strokeLinecap="round" />
       <path d="M6 32L2 24M6 32L15 30" stroke="currentColor" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
@@ -74,8 +74,8 @@ export default function Sobre({
 
       {/* bloco creme — nichos & público */}
       <div className="reveal bg-cream px-6 py-16 sm:px-10 sm:py-24">
-        <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-center gap-7">
-          <div className="flex flex-1 basis-[220px] flex-col items-end gap-3">
+        <div className="mx-auto flex max-w-5xl flex-col items-center justify-center gap-7 lg:flex-row lg:flex-wrap">
+          <div className="flex flex-1 basis-[200px] flex-col items-center gap-3 lg:items-end">
             {niche.left.map((t) => (
               <span
                 key={t.label}
@@ -94,7 +94,7 @@ export default function Sobre({
             <CurveArrow flip />
           </div>
 
-          <div className="flex flex-1 basis-[220px] flex-col items-start gap-3">
+          <div className="flex flex-1 basis-[200px] flex-col items-center gap-3 lg:items-start">
             {niche.right.map((t) => (
               <span
                 key={t.label}
