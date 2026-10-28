@@ -1,0 +1,191 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Bagel Fat One", cursive;
+  --font-sans: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+
+  --color-cream: #f3eee1;
+  --color-paper: #fbf7ec;
+  --color-ink: #2b2620;
+  --color-ink-soft: #4a4639;
+
+  --color-pink: #f0a6b4;
+  --color-pink-deep: #e0527a;
+  --color-green: #a6c48a;
+  --color-yellow: #f3c94f;
+  --color-blue: #4fa8d8;
+  --color-sand: #eadfc2;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    margin: 0;
+    background: var(--color-cream);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+  }
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    margin: 0;
+  }
+  :focus-visible {
+    outline: 3px solid color-mix(in oklab, var(--color-pink-deep) 55%, transparent);
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  @keyframes float-a {
+    0%,
+    100% {
+      transform: translateY(0) rotate(-4deg);
+    }
+    50% {
+      transform: translateY(-14px) rotate(2deg);
+    }
+  }
+  @keyframes float-b {
+    0%,
+    100% {
+      transform: translateY(0) rotate(3deg);
+    }
+    50% {
+      transform: translateY(12px) rotate(-2deg);
+    }
+  }
+  @keyframes spin-slow {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes bounce-arrow {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(10px);
+    }
+  }
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @keyframes pulse-ring {
+    0%,
+    100% {
+      box-shadow: 0 0 0 0 rgb(43 38 32 / 0.18);
+    }
+    50% {
+      box-shadow: 0 0 0 12px rgb(43 38 32 / 0);
+    }
+  }
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(28px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-float-a {
+    animation: float-a 6s ease-in-out infinite;
+  }
+  .animate-float-b {
+    animation: float-b 7s ease-in-out infinite;
+  }
+  .animate-spin-slow {
+    animation: spin-slow 14s linear infinite;
+  }
+  .animate-bounce-arrow {
+    animation: bounce-arrow 1.8s ease-in-out infinite;
+  }
+  .animate-pulse-ring {
+    animation: pulse-ring 2.4s ease-in-out infinite;
+  }
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee 26s linear infinite;
+  }
+  .marquee-track:hover {
+    animation-play-state: paused;
+  }
+
+  /* revela ao rolar: parte oculta, ganha .is-visible via IntersectionObserver */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .tag-pill {
+    transition: transform 0.25s ease, background-color 0.25s ease, color 0.25s ease;
+  }
+  .tag-pill:hover {
+    transform: translateY(-3px);
+    background: var(--color-pink-deep);
+    color: var(--color-paper);
+  }
+
+  .sunburst {
+    position: relative;
+  }
+  .sunburst::before,
+  .sunburst::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: currentColor;
+    border-radius: 10px;
+  }
+  .sunburst::after {
+    transform: rotate(45deg);
+  }
+
+  /* só a faixa de scroll horizontal (carrossel de vídeos) ganha essa barrinha — nunca o scroll vertical da página */
+  .hscroll::-webkit-scrollbar {
+    height: 10px;
+  }
+  .hscroll::-webkit-scrollbar-thumb {
+    background: var(--color-ink);
+    border-radius: 8px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-float-a,
+    .animate-float-b,
+    .animate-spin-slow,
+    .animate-bounce-arrow,
+    .animate-pulse-ring,
+    .marquee-track {
+      animation: none !important;
+    }
+    .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+}

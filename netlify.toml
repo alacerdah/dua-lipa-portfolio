@@ -1,0 +1,12 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# site de página única, mas mantém a rede de segurança caso rotas entrem depois
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
