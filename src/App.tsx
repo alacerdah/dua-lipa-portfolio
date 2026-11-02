@@ -1,5 +1,6 @@
 import { sampleContent } from "./data/sampleContent";
 import { useScrollReveal } from "./hooks/useScrollReveal";
+import { useProjectNiches } from "./hooks/useProjectNiches";
 import Nav from "./components/Nav";
 import Hero from "./components/Hero";
 import Sobre from "./components/Sobre";
@@ -12,6 +13,7 @@ import type { PortfolioContent } from "./types";
 
 function PortfolioTemplate({ content }: { content: PortfolioContent }) {
   useScrollReveal();
+  const niches = useProjectNiches();
 
   return (
     <div className="relative w-full overflow-x-hidden bg-cream text-ink">
@@ -24,7 +26,7 @@ function PortfolioTemplate({ content }: { content: PortfolioContent }) {
         stats={content.stats}
         niche={content.niche}
       />
-      <Videos items={content.videos} />
+      <Videos items={content.videos} apiNiches={niches} />
       <Fotos items={content.photos} />
       <Trabalho steps={content.process} />
       <Marcas brands={content.brands} />
