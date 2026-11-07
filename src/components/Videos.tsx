@@ -2,8 +2,11 @@ import { useRef, useState } from "react";
 import type { PointerEvent as ReactPointerEvent } from "react";
 import type { VideoItem } from "../types";
 import type { ApiNiche } from "../shared/videos-api";
+import SocialEmbed from "./SocialEmbed";
 
-function cardsFrom(staticItems: VideoItem[], apiNiches: ApiNiche[] | null | undefined): VideoItem[] {
+type VideoCard = VideoItem & { platform?: "instagram" | "tiktok" | "youtube" | "outro" };
+
+function cardsFrom(staticItems: VideoItem[], apiNiches: ApiNiche[] | null | undefined): VideoCard[] {
   if (!apiNiches || apiNiches.length === 0) return staticItems;
   const videos = apiNiches.flatMap((n) => n.videos).sort((a, b) => a.position - b.position);
   if (videos.length === 0) return staticItems;
@@ -11,6 +14,7 @@ function cardsFrom(staticItems: VideoItem[], apiNiches: ApiNiche[] | null | unde
     id: v.id,
     label: v.title || `[VÍDEO: ${v.tag || v.platform}]`,
     url: v.url,
+    platform: v.platform,
   }));
 }
 
@@ -67,6 +71,13 @@ export default function Videos({ items, apiNiches }: { items: VideoItem[]; apiNi
         }`}
       >
         {cards.map((v) => {
+          if (v.url && (v.platform === "instagram" || v.platform === "tiktok")) {
+            return (
+              <div key={v.id} className="w-[270px] shrink-0 snap-start">
+                <SocialEmbed platform={v.platform} url={v.url} />
+              </div>
+            );
+          }
           const Tag = v.url ? "a" : "div";
           return (
             <Tag
